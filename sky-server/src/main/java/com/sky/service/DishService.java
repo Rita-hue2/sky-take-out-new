@@ -54,5 +54,11 @@ public interface DishService {
 	 * @param status
 	 */
 	void updateStatus(Long id, Integer status);
+	/**
+	 * user端
+	 * @param categoryId
+	 * @return
+	 */
+	List<DishVO> listWithFlavor(Long categoryId);
 
 }

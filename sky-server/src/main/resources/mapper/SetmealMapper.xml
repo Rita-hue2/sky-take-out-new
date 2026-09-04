@@ -74,5 +74,15 @@
 	        </foreach>
 	    </where>
 	</delete>
-	
+	<!-- user端 -->
+	<select id="getDishItemBySetmealId" resultType="com.sky.vo.DishItemVO">
+	    select sd.dish_id, d.name, sd.copies, d.image, d.price
+	    from setmeal_dish sd
+	    left join dish d on sd.dish_id = d.id
+	    where sd.setmeal_id = #{setmealId}
+	</select>
+	<select id="listByCategoryId" resultType="com.sky.entity.Setmeal">
+	    select * from setmeal
+	    where category_id = #{categoryId} and status = 1
+	</select>
 </mapper>

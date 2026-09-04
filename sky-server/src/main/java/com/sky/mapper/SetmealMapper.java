@@ -10,6 +10,7 @@ import com.sky.auto_zj.AutoFill;
 import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.entity.Setmeal;
 import com.sky.enumeration.OperationType;
+import com.sky.vo.DishItemVO;
 import com.sky.vo.SetmealVO;
 /**
  * 套餐数据实现层
@@ -53,4 +54,17 @@ public interface SetmealMapper {
 	 * @param ids
 	 */
 	void deleteByIds(List<Long> ids);
+	/**
+	 * 根据分类id查询起售套餐
+	 * @param categoryId
+	 * @return
+	 */
+	List<Setmeal> listByCategoryId(Long categoryId);
+	/**
+	 * 根据套餐id获取套餐内菜品信息
+	 * @param setmealId
+	 * @return
+	 */
+	List<DishItemVO> getDishItemBySetmealId(Long setmealId);
+
 }

@@ -1,0 +1,46 @@
+package com.sky.controller.user;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sky.result.Result;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * 店铺相关接口操作
+ * @author Nerissa WU
+ *
+ */
+@RestController("ShopUserController")
+@Slf4j
+@Api(tags = "店铺相关接口")
+@RequestMapping("/user/shop")
+public class ShopController {
+	//设置redis key常量
+	public static final String KEY = "SHOP_STATUS";
+	
+	@Autowired
+	private RedisTemplate redisTemplate;
+	
+	/**
+	 * 获取营业状态
+	 * @return
+	 */
+	@ApiOperation("获取营业状态")
+	@GetMapping("/{status}")
+	public Result<Integer> getStatus(){
+		Integer status = (Integer) redisTemplate.opsForValue().get(KEY);
+		if (status != null) {
+			log.info("获取店铺的营业状态为：{}",status == 1 ? "营业中":"打烊中");
+		}
+		return Result.success(status);
+	}
+}

@@ -68,5 +68,11 @@ public interface DishMapper {
 	 * @return
 	 */
 	Integer countStopDishByIds(List<Long> dishIds);
+	/**
+	 * 根据分类id查询起售状态的菜品
+	 * @param categoryId
+	 * @return
+	 */
+	List<Dish> listByCategoryId(Long categoryId);
 
 }

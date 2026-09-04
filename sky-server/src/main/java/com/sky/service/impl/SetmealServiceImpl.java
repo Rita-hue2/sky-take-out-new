@@ -19,6 +19,7 @@ import com.sky.mapper.SetmealDishMapper;
 import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
 import com.sky.service.SetmealService;
+import com.sky.vo.DishItemVO;
 import com.sky.vo.DishVO;
 import com.sky.vo.SetmealVO;
 
@@ -138,4 +139,28 @@ public class SetmealServiceImpl implements SetmealService {
 	    //删除套餐主表数据
 	    setmealMapper.deleteByIds(ids);
 	}
+	/**
+	 * 根据分类id查询套餐（C端小程序，只查询起售状态套餐）
+	 * @param categoryId 分类id
+	 * @return List<Setmeal>
+	 */
+	@Override
+	public List<Setmeal> list(Long categoryId) {
+	    //查询该分类下起售的套餐
+	    List<Setmeal> setmealList = setmealMapper.listByCategoryId(categoryId);
+	    return setmealList;
+	}
+
+	/**
+	 * 根据套餐id查询套餐里面包含的菜品（C端小程序）
+	 * @param id 套餐id
+	 * @return List<DishItemVO>
+	 */
+	@Override
+	public List<DishItemVO> getDishBySetmealId(Long id) {
+	    //调用mapper关联查询setmeal_dish、dish表，封装DishItemVO
+	    List<DishItemVO> dishItemVOList = setmealMapper.getDishItemBySetmealId(id);
+	    return dishItemVOList;
+	}
+
 }

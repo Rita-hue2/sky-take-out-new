@@ -11,3 +11,12 @@ sky:
     access-key-id: test
     access-key-secret: test
     bucket-name: carry-sky-images
+  redis:
+    home: localhost
+    password: 123456
+    port: 6379
+    database: 0
+  wechat:
+    appid: wx3ec0acd7a0349ae8
+    secret: f4333186f83a55555ddc0689dfb3b145
+    

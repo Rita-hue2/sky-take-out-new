@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
  * 分类相关接口
  *
  */
-@RestController
+@RestController(value = "AdminCategoryController")
 @Slf4j
 @Api(tags = "分类相关接口")
 @RequestMapping("/admin/category")

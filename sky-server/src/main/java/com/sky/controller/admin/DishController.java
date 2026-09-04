@@ -26,7 +26,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
-@RestController
+@RestController(value = "AdminDishController")
 @Slf4j
 @Api(tags = "菜品相关接口")
 @RequestMapping("/admin/dish")
