@@ -52,7 +52,10 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         .excludePathPatterns("/user/category/list")
         .excludePathPatterns("/user/dish/list")
         .excludePathPatterns("/user/setmeal/list")
-        .excludePathPatterns("/user/setmeal/dish/*");
+        .excludePathPatterns("/user/setmeal/dish/*")
+        .excludePathPatterns("/user/shoppingCart/list")
+        .excludePathPatterns("/user/shoppingCart/**")
+        .excludePathPatterns("/user/addressBook/**");
     }
 
     /**

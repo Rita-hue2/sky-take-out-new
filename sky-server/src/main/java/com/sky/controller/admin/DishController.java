@@ -1,8 +1,10 @@
 package com.sky.controller.admin;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +36,8 @@ public class DishController {
 	
 	@Autowired
 	private DishService dishService;
-	
+	@Autowired
+    private RedisTemplate redisTemplate;
 	/**
 	 * 新增菜品接口
 	 * @param dishDTO
@@ -46,6 +49,8 @@ public class DishController {
 		log.info("新增菜品传参为：{}",dishDTO);
 		//调用新增菜品方法
 		dishService.addDish(dishDTO);
+		String key = "dish_" + dishDTO.getCategoryId();
+		clearRedis(key);
 		return Result.success();
 	}
 	/**
@@ -89,6 +94,7 @@ public class DishController {
 	public Result updateDish(@RequestBody DishDTO dishDTO) {
 		log.info("当前更新后的菜品信息： { }",dishDTO);
 		dishService.updateDish(dishDTO);
+		clearRedis("dish_*");
 		return Result.success();
 	}
 	/**
@@ -101,12 +107,18 @@ public class DishController {
 	public Result deleteDish(@RequestParam List<Long> ids) {
 		log.info("当前需要删除的菜品ID：{}",ids);
 		dishService.deleteDishByDishIds(ids);
+		clearRedis("dish_*");
 		return Result.success();
 	}
 	@PostMapping("/status/{status}")
 	@ApiOperation("菜品起售、停售")
 	public Result updateStatus(@PathVariable Integer status, Long id){
 	    dishService.updateStatus(id,status);
+	    clearRedis("dish_*");
 	    return Result.success();
+	}
+	public void clearRedis(String key) {
+		Set keys = redisTemplate.keys(key);
+		redisTemplate.delete(keys);
 	}
 }

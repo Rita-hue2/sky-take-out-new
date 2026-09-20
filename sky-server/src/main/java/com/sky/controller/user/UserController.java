@@ -46,7 +46,7 @@ public class UserController {
 	public Result<UserLoginVO> userLogin(@RequestBody UserLoginDTO userLoginDTO){
 	    log.info("用户传递的数据：{}",userLoginDTO);
 
-	    //================调试模拟登录，作业调试用，提交作业删掉这段模拟代码================
+	    //================调试模拟登================
 	    // 伪造用户对象，不去调用 userService.wxLogin(userLoginDTO);
 	    User user = new User();
 	    user.setId(1L);
